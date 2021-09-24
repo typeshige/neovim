@@ -26,10 +26,17 @@ return require('packer').startup(function()
 
   use {
      'nvim-telescope/telescope.nvim',
-      requires = { {'nvim-lua/plenary.nvim'} }
+      requires = {
+          {'nvim-lua/popup.nvim'},
+          {'nvim-lua/plenary.nvim'} 
+      }
   }
 
   use 'neovim/nvim-lspconfig'
+
+  use 'ray-x/lsp_signature.nvim'
+
+  use 'kosayoda/nvim-lightbulb'
 
   use {
     "folke/trouble.nvim",
@@ -72,7 +79,8 @@ return require('packer').startup(function()
 
   use {
       'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate'
+      event = "BufRead",
+      -- run = ':TSUpdate'
   }
 
   -- Colorschema

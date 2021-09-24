@@ -17,15 +17,16 @@ require("indent_blankline").setup {
 require('neoscroll').setup()
 
 
-require 'disable_builtin'
-
-
 require('lspconfig').pyright.setup{}
 require('lspconfig').pylsp.setup{}
+require "lsp_signature".setup()
+
+-- require('disable_builtin').disable_distribution_plugins()
 
 g.mapleader = ' '
 
 vim.o.mouse = 'a'
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
 
 -- Quit, close buffers, etc.
 map('n', '<leader>q', '<cmd>qa!<cr>', silent)
@@ -45,3 +46,4 @@ M.plugins = {
 }
 
 return M
+
