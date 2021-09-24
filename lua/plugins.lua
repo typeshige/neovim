@@ -62,6 +62,13 @@ return require('packer').startup(function()
   }
 
   use {
+    'lewis6991/spaceless.nvim',
+      config = function()
+        require'spaceless'.setup()
+      end
+  }
+
+  use {
     "folke/zen-mode.nvim",
     config = function()
       require("zen-mode").setup {
