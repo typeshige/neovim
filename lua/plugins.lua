@@ -34,7 +34,19 @@ return require('packer').startup(function()
 
   use 'neovim/nvim-lspconfig'
 
+  use 'nvim-lua/completion-nvim'
+
+  use 'onsails/lspkind-nvim'
+
+  use 'L3MON4D3/LuaSnip'
+
+  use 'hrsh7th/nvim-cmp'
+
+  use 'saadparwaiz1/cmp_luasnip'
+
   use 'ray-x/lsp_signature.nvim'
+
+  use 'terrortylor/nvim-comment'
 
   use 'kosayoda/nvim-lightbulb'
 
