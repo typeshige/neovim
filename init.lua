@@ -1,66 +1,55 @@
-vim.g.mapleader = ' '
+local g = vim.g
+local vim = vim
 
-require('disable_builtin')
+g.mapleader = [[ ]]
+g.maplocalleader = [[,]]
 
 require('plugins')
+require('ui')
 
-local vim = vim
-local utils = require 'config.utils'
-local g = vim.g
-local map = utils.map
+require('lspconfig').pyright.setup {}
+require('lspconfig').pylsp.setup {}
 
-vim.opt.listchars = {
-    eol = "↴",
+require('neogit').setup {}
+require('gitsigns').setup {}
+
+require('which-key').setup {}
+
+require('trouble').setup {}
+
+require('nvim-treesitter.configs').setup {
+	highlight = {
+		enable = true,
+	}
 }
 
-require("indent_blankline").setup {
-    show_end_of_line = true,
-}
+require('Comment').setup {}
 
-require('neoscroll').setup()
+require('feline').setup {}
 
-require('nvim-tree').setup()
+require('neoscroll').setup {}
 
-require('lspconfig').pyright.setup {
- on_attach=require'completion'.on_attach
-}
-
-require('lspconfig').pylsp.setup {
- on_attach=require'completion'.on_attach
-}
-
-require "lsp_signature".setup()
-
-require('lspconfig').gopls.setup{}
-
-require('feline').setup()
-
-require('nvim_comment').setup()
-
-require('lspkind').init()
-
+vim.o.ignorecase = true
 vim.o.mouse = 'a'
-
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+vim.o.smartcase = true
+vim.o.termguicolors = true
+vim.o.updatetime = 250
+vim.o.wrap = false
 
 vim.wo.number = true
+vim.wo.signcolumn = 'yes'
 
--- Quit, close buffers, etc.
-map('n', '<leader>q', '<cmd>qa!<cr>', silent)
-map('n', '<Enter>', 'o<ESC>', silent)
-map('n', '<C-n>', '<cmd>NvimTreeToggle<cr>', silent)
-map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', silent)
-map('n', '<cmd>W<Enter>', '<cmd>w<cr>', silent)
+vim.cmd [[
+nnoremap <leader>q <cmd>qa!<CR>
+nnoremap <leader>ff <cmd>Telescope find_files<CR>
+nnoremap <Enter> o<ESC>
 
--- local M = {}
--- 
--- M.plugins, M.options = {}, {}
--- 
--- M.plugins = {
---     lspconfig = {
---         servers = {"pylsp", "pyright"},
---     },
--- }
--- 
--- return M
+tnoremap <C-A-n> <cmd>NnnExplorer<CR>
+nnoremap <C-A-n> <cmd>NnnExplorer<CR>
+tnoremap <C-A-p> <cmd>NnnPicker<CR>
+nnoremap <C-A-p> <cmd>NnnPicker<CR>
 
+tnoremap <silent> <M-i> <C-\><C-n>:RnvimrResize<CR>
+nnoremap <silent> <M-o> :RnvimrToggle<CR>
+tnoremap <silent> <M-o> <C-\><C-n>:RnvimrToggle<CR>
+]]

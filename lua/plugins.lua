@@ -1,113 +1,94 @@
 local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
   vim.cmd 'packadd packer.nvim'
 end
 
-vim.o.termguicolors = true
-vim.cmd [[colorscheme nightfly]]
+vim.cmd [[packadd packer.nvim]]
+local packer = require 'packer'
 
-return require('packer').startup(function()
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-  use 'famiu/feline.nvim'
+packer.init {
+  display = {
+    open_fn = function()
+      return require('packer.util').float { border = 'single' }
+    end,
+    prompt_border = 'single',
+  },
+  git = {
+    clone_timeout = 600, -- Timeout, in seconds, for git clones
+  },
+  auto_clean = true,
+  compile_on_sync = true,
+  profile = {
+    enable = true,
+    threshold = 1,
+  },
+  luarocks = {
+    python_cmd = 'python -m',
+  },
+  config = {
+    compile_path = vim.fn.stdpath 'config' .. '/lua/packer_compiled.lua',
+  },
+}
 
-  use 'kyazdani42/nvim-web-devicons'
-  use { 
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = {
-      nvim_tree_show_icons = {
-        icons = 1,
-      }
-    }
-  }
+local use = packer.use
+
+return packer.startup(function()
+
+  use { 'wbthomason/packer.nvim' }
+
+  use 'lewis6991/impatient.nvim'
 
   use {
-     'nvim-telescope/telescope.nvim',
-      requires = {
-          {'nvim-lua/popup.nvim'},
-          {'nvim-lua/plenary.nvim'} 
-      }
+	  'TimUntersberger/neogit', 
+	  requires = {
+		  'nvim-lua/plenary.nvim'
+	  }
   }
 
   use 'neovim/nvim-lspconfig'
 
-  use 'nvim-lua/completion-nvim'
-
-  use 'onsails/lspkind-nvim'
-
-  use 'L3MON4D3/LuaSnip'
-
-  use 'hrsh7th/nvim-cmp'
-
-  use 'saadparwaiz1/cmp_luasnip'
-
-  use 'ray-x/lsp_signature.nvim'
-
-  use 'terrortylor/nvim-comment'
-
-  use 'kosayoda/nvim-lightbulb'
-
-  use {
-    "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
-
-  use {
-    "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
-
-  use {
-    'lewis6991/spaceless.nvim',
-      config = function()
-        require'spaceless'.setup()
-      end
-  }
-
-  use {
-    "folke/zen-mode.nvim",
-    config = function()
-      require("zen-mode").setup {
-      }
-    end
-  }
-
-  use {
-    "folke/twilight.nvim",
-    config = function()
-      require("twilight").setup {
-      }
-    end
-  }
-
-  use {
-      'nvim-treesitter/nvim-treesitter',
-      event = "BufRead",
-      -- run = ':TSUpdate'
-  }
-
-  -- Colorschema
-  use 'bluz71/vim-nightfly-guicolors'
-
-  use 'lukas-reineke/indent-blankline.nvim'
+  use 'kyazdani42/nvim-web-devicons'
 
   use 'karb94/neoscroll.nvim'
 
-end)
+  use 'numToStr/Comment.nvim'
 
+  use 'kevinhwang91/rnvimr'
+
+  use {
+	  'nvim-treesitter/nvim-treesitter',
+	  run = ':TSUpdate'
+  }
+
+  use { 
+	  'lewis6991/gitsigns.nvim', 
+	  requires = { 
+		  'nvim-lua/plenary.nvim' 
+	  }
+  }
+
+  use 'Yagua/nebulous.nvim'
+  use 'pineapplegiant/spaceduck'
+  use 'Pocco81/Catppuccino.nvim'
+
+  use 'famiu/feline.nvim'
+
+  use { 
+	  'nvim-telescope/telescope.nvim', 
+	  requires = { 
+		  { 'nvim-lua/popup.nvim' }, 
+		  { 'nvim-lua/plenary.nvim' }, 
+		  { 'nvim-telescope/telescope-packer.nvim', opt = true }, 
+		  { 'nvim-telescope/telescope-project.nvim', opt = true }, 
+	  }, 
+	  config = function() end, 
+	  cmd = 'Telescope', 
+	  event = 'BufWinEnter', 
+  }
+
+  use 'folke/which-key.nvim'
+  use 'folke/trouble.nvim'
+
+end)
