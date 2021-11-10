@@ -49,6 +49,8 @@ return packer.startup(function()
 
   use 'neovim/nvim-lspconfig'
 
+  use 'folke/lsp-colors.nvim'
+
   use 'kyazdani42/nvim-web-devicons'
 
   use 'karb94/neoscroll.nvim'
@@ -90,5 +92,18 @@ return packer.startup(function()
 
   use 'folke/which-key.nvim'
   use 'folke/trouble.nvim'
+
+  use 'onsails/lspkind-nvim'
+
+  -- Completion
+  use "hrsh7th/nvim-cmp"
+  use "hrsh7th/cmp-buffer"
+  use "hrsh7th/cmp-path"
+  use "hrsh7th/cmp-nvim-lua"
+  use "hrsh7th/cmp-nvim-lsp"
+  use "saadparwaiz1/cmp_luasnip"
+  use "tamago324/cmp-zsh"
+
+  use 'lukas-reineke/indent-blankline.nvim'
 
 end)
