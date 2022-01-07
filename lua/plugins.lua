@@ -90,6 +90,14 @@ return packer.startup(function()
 	  event = 'BufWinEnter', 
   }
 
+  use {
+      'kyazdani42/nvim-tree.lua',
+      requires = {
+         'kyazdani42/nvim-web-devicons', -- optional, for file icon
+      },
+      config = function() require'nvim-tree'.setup {} end
+  }
+
   use 'folke/which-key.nvim'
   use 'folke/trouble.nvim'
 
