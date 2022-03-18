@@ -41,6 +41,8 @@ vim.o.updatetime = 250
 vim.o.wrap = false
 vim.o.colorcolumn = "78"
 vim.o.scrolloff = 3
+vim.o.laststatus = 3
+vim.cmd 'hi WinSeparator guibg=None guifg=Comment'
 
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
